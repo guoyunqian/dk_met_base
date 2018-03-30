@@ -12,8 +12,10 @@ def ensure_numeric(A, typecode=None):
     """
     Ensure that sequence is a numeric array.
 
-    :param A: Sequence. If A is already a numeric array it will be returned unaltered
-                        If not, an attempt is made to convert it to a numeric array
+    :param A: Sequence. If A is already a numeric array it will be returned
+                        unaltered.
+                        If not, an attempt is made to convert it to a
+                        numeric array.
            A: Scalar.   Return 0-dimensional array containing that value. Note
                         that a 0-dim array DOES NOT HAVE A LENGTH UNDER numpy.
            A: String.   Array of ASCII values (numpy can't handle this)

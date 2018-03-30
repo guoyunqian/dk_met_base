@@ -9,7 +9,8 @@ import pandas as pd
 from dateutil.relativedelta import relativedelta
 
 
-__months__ = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+__months__ = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+              'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
 
 def datetime_range(start, end, delta):
@@ -96,4 +97,3 @@ def np64toDate(np64):
     :return:
     """
     return pd.to_datetime(str(np64)).replace(tzinfo=None).to_pydatetime()
-

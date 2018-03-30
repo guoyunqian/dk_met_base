@@ -1,7 +1,7 @@
 # _*_ coding: utf-8 _*_
 
 """
-Some common statistic functions.
+Statistic functions.
 """
 
 import numpy as np
@@ -9,7 +9,8 @@ import numpy as np
 
 def vcorrcoef(X, y, dim):
     """
-    Compute vectorized correlation coefficient
+    Compute vectorized correlation coefficient.
+    refer to:
     https://waterprogramming.wordpress.com/2014/06/13/numpy-vectorized-correlation-coefficient/
 
     :param X: nD array.
@@ -31,4 +32,3 @@ def vcorrcoef(X, y, dim):
     r = r_num / r_den
 
     return r
-

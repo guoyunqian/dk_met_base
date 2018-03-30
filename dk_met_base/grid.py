@@ -50,23 +50,23 @@ def calc_dx_dy(lon, lat, shape='WGS84', radius=6370997.):
         latitude = lat
 
     if radius != 6370997.:
-        g = Geod(a=radius, b=radius)
+        gg = Geod(a=radius, b=radius)
     else:
-        g = Geod(ellps=shape)
+        gg = Geod(ellps=shape)
 
     dx = np.empty(latitude.shape)
     dy = np.zeros(longitude.shape)
 
     for i in range(latitude.shape[1]):
         for j in range(latitude.shape[0] - 1):
-            _, _, dx[j, i] = g.inv(
+            _, _, dx[j, i] = gg.inv(
                 longitude[j, i], latitude[j, i], longitude[j + 1, i],
                 latitude[j + 1, i])
     dx[j + 1, :] = dx[j, :]
 
     for i in range(latitude.shape[1] - 1):
         for j in range(latitude.shape[0]):
-            _, _, dy[j, i] = g.inv(
+            _, _, dy[j, i] = gg.inv(
                 longitude[j, i], latitude[j, i], longitude[j, i + 1],
                 latitude[j, i + 1])
     dy[:, i + 1] = dy[:, i]
@@ -284,15 +284,14 @@ def d2vardy2(var, lat, ydim, sphere=True):
     return out
 
 
-def dvardvar(var1, var2, dim, cyclic=True):
+def dvardvar(var1, var2, dim):
     """
     Calculate d(var1)/d(var2) along axis=dim.
     https://bitbucket.org/tmiyachi/pymet/src/8df8e3ff2f899d625939448d7e96755dfa535357/pymet/grid.py
 
-    :param var1:
-    :param var2:
-    :param dim:
-    :param cyclic:
+    :param var1: numpy nd array, denominator of derivative
+    :param var2: numpy nd array, numerator of derivative
+    :param dim: along dimension.
     :return:
     """
 
@@ -639,7 +638,7 @@ def total_col(infld, pres, temp, hght):
     return coltot
 
 
-def vmean(var, bottom, top, lev, zdim, punit=100.):
+def vmean(var, bottom, top, lev, zdim):
     """
     Calculate vertical mean.
 
@@ -648,7 +647,6 @@ def vmean(var, bottom, top, lev, zdim, punit=100.):
     :param top: top boundary of integration.
     :param lev: isobaric levels.
     :param zdim: vertical dimension.
-    :param punit: levels units.
     :return: array_like.
     """
 

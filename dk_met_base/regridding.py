@@ -284,6 +284,7 @@ def box_max_avg(field, lon, lat, olon, olat,
                 width=None, number=1, rm_nan=False):
     """
     Remap high resolution field to coarse with box_max_avg.
+    Same sa box_avg, but average the "number" hightest values.
     Accelerated by numba, but slower than rebin.
 
     :param field: 2D array (nlat, nlon) for input high resolution.

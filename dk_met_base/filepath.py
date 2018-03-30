@@ -11,7 +11,8 @@ def product_filename(model=None, product=None, level=None, obs_time=None,
                      init_time=None, fhour=None, valid_time=None,
                      statistic=None, place=None, suffix=None, root_dir=None):
     """
-    Construct standard product file name, all parameters should not include "_".
+    Construct standard product file name, all parameters should not
+    include "_".
 
     :param model: model name.
     :param product: product name.
@@ -47,7 +48,8 @@ def product_filename(model=None, product=None, level=None, obs_time=None,
         if isinstance(obs_time, datetime.datetime):
             filename = filename + "_OT_" + obs_time.strftime("%Y%m%d%H")
         elif isinstance(obs_time, np.datetime64):
-            filename = filename + "_OT_" + pd.to_datetime(str(obs_time)).strftime("%Y%m%d%H")
+            filename = filename + "_OT_" + \
+                       pd.to_datetime(str(obs_time)).strftime("%Y%m%d%H")
         else:
             filename = filename + "_OT_" + str(obs_time).strip()
 
@@ -56,7 +58,8 @@ def product_filename(model=None, product=None, level=None, obs_time=None,
         if isinstance(init_time, datetime.datetime):
             filename = filename + "_IT_" + init_time.strftime("%Y%m%d%H")
         elif isinstance(init_time, np.datetime64):
-            filename = filename + "_IT_" + pd.to_datetime(str(init_time)).strftime("%Y%m%d%H")
+            filename = filename + "_IT_" + \
+                       pd.to_datetime(str(init_time)).strftime("%Y%m%d%H")
         else:
             filename = filename + "_IT_" + str(init_time).strip()
 
@@ -69,7 +72,8 @@ def product_filename(model=None, product=None, level=None, obs_time=None,
         if isinstance(valid_time, datetime.datetime):
             filename = filename + "_VT_" + valid_time.strftime("%Y%m%d%H")
         elif isinstance(valid_time, np.datetime64):
-            filename = filename + "_VT_" + pd.to_datetime(str(valid_time)).strftime("%Y%m%d%H")
+            filename = filename + "_VT_" + \
+                       pd.to_datetime(str(valid_time)).strftime("%Y%m%d%H")
         else:
             filename = filename + "_VT_" + str(valid_time).strip()
 

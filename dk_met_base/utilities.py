@@ -57,4 +57,3 @@ def lat2txt(lat, fmt='%g'):
         latlabstr = u'%s\N{DEGREE SIGN}' % fmt
         latlab = latlabstr % lat
     return latlab
-

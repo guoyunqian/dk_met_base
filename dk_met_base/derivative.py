@@ -8,37 +8,39 @@ import numpy as np
 from dk_met_base.arr import conform_dims
 
 
-def center_finite_diff_n(grid, dim=1, r=None, map_scale=None, cyclic=False, second=False):
+def center_finite_diff_n(grid, dim=1, r=None, map_scale=None,
+                         cyclic=False, second=False):
     """
     Performs a centered finite difference operation on the given dimension.
-    
+
     using:
     Central finite difference scheme second order for first derivatives
       (u[i+1]-u[i-1])/(2dx)
     Central finite difference scheme second order for second derivatives
       (u[i+1]+u[i-1]-2*u[i])/(dx*dx)
-      
+
     reference:
     http://www.cfm.brown.edu/people/jansh/resources/APMA1180/fd.pdf
-    
+
     notice: for second derivatives, ensure equal interval.
-    
+
     :param grid: a multi-dimensional numpy array.
-    :param r: A scalar, one-dimensional, or multi-dimensional array containing the coordinates along which grid
-              is to be difference. Does need not be equally spaced from a computational point of view. 
-                  >scalar: r assumed to be the (constant) distance between adjacent points.
-                  >one-dimensional (and the same size as the dimension of grid): applied to all dimensions of grid.
+    :param r: A scalar, one-dimensional, or multi-dimensional array containing
+              the coordinates along which grid is to be difference. Does need
+              not be equally spaced from a computational point of view.
+                  >scalar: r assumed to be the (constant) distance between
+                           adjacent points.
+                  >one-dimensional (and the same size as the dimension of
+                           grid): applied to all dimensions of grid.
                   >multi-dimensional: then it must be the same size as grid.
-    :param dim: A scalar integer indicating which dimension of grid to calculate the center finite difference on. 
+    :param dim: A scalar integer indicating which dimension of grid to
+                calculate the center finite difference on.
                 Dimension numbering starts at 1, default=1.
-    :param map_scale:  map scale coefficient, a scalar, one-dimensional, or multi-dimensional array like r.
+    :param map_scale:  map scale coefficient, a scalar, one-dimensional,
+                       or multi-dimensional array like r.
     :param cyclic: cyclic or periodic boundary.
     :param second: calculate second derivatives, default is first derivatives.
     :return: finite difference array.
-    
-    :Example:
-    
-    
     """
 
     # move specified dimension to the first
@@ -69,7 +71,7 @@ def center_finite_diff_n(grid, dim=1, r=None, map_scale=None, cyclic=False, seco
             if np.ndim(mps) == 1:
                 mps = conform_dims(grid.shape, mps, [0])
             if np.ndim(mps) > 1:
-                msp = np.transpose(mps, p)
+                mps = np.transpose(mps, p)
             rr *= mps
 
     #
@@ -111,14 +113,17 @@ def center_finite_diff_n(grid, dim=1, r=None, map_scale=None, cyclic=False, seco
             dgrid[..., 0] = grid[..., 1] + grid[..., -1] - 2*grid[..., 0]
             dgrid[..., -1] = grid[..., 0] + grid[..., -2] - 2*grid[..., -1]
             if r is not None:
-                drr[..., 0] = (rr[..., 1] - rr[..., 0]) * (rr[..., -1] - rr[..., -2])
+                drr[..., 0] = (rr[..., 1] - rr[..., 0]) * \
+                              (rr[..., -1] - rr[..., -2])
                 drr[..., -1] = drr[..., 0]
         else:
             dgrid[..., 0] = grid[..., 0] + grid[..., -2] - 2 * grid[..., 1]
             dgrid[..., -1] = grid[..., -1] + grid[..., -3] - 2 * grid[..., -2]
             if r is not None:
-                drr[..., 0] = (rr[..., 1] - rr[..., 0]) * (rr[..., 2] - rr[..., 1])
-                drr[..., -1] = (rr[..., -1] - rr[..., -2]) * (rr[..., -2] - rr[..., -3])
+                drr[..., 0] = (rr[..., 1] - rr[..., 0]) * \
+                              (rr[..., 2] - rr[..., 1])
+                drr[..., -1] = (rr[..., -1] - rr[..., -2]) * \
+                               (rr[..., -2] - rr[..., -3])
 
     # compute derivatives
     if r is not None:
@@ -130,4 +135,3 @@ def center_finite_diff_n(grid, dim=1, r=None, map_scale=None, cyclic=False, seco
 
     # return
     return dgrid
-

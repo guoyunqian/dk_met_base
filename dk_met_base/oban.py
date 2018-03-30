@@ -48,25 +48,27 @@ def barnes(ix, iy, iz, gs=None, nyx=None, limit=None, radius=None,
            yxout=None, first_guess=None, missing=None,
            zrange=None, nonegative=False):
     """
-    implement barnes objective analysis.
+    Implement barnes objective analysis.
     note: 1、not consider pole area, Near the poles,
              an approximate calculation of the distance along
              a great circle arc should be used.
 
     references:
-    Koch, S., M. desJardins,and P. Kocin, 1983: An Interactive Barnes Objective
-      Map Analysis Scheme for Use with Satellite and Convectional Data. Journal of
-      Appl. Meteor., 22, 1487-1503.
-    Barnes, S.L., 1994a: Applications of the Barnes objective analysis scheme Part
-      I: Effects of undersampling, wave position, and station randomness. J. Atmos.
-      Oceanic Technol. 11, 1433-1448.
-    Barnes, S.L., 1994b: Applications of the Barnes objective analysis scheme Part
-      II: Improving derivative estimates. J. Atmos. Oceanic Technol. 11, 1449-1458.
-    Barnes, S.L., 1994c: Applications of the Barnes objective analysis scheme Part
-      III: Tuning for minimum error. J. Atmos. Oceanic Technol. 11, 1459-1479.
-    Narkhedkar, S. G., S. K. Sinha and A. K. Mitra (2008): Mesoscale objective
-      analysis of daily rainfall with satellite and conventional data over Indian
-      summer monsoon region. Geofizika, 25, 159-178.
+    Koch, S., M. desJardins,and P. Kocin, 1983: An Interactive Barnes
+      Objective Map Analysis Scheme for Use with Satellite and
+      Convectional Data. Journal of Appl. Meteor., 22, 1487-1503.
+    Barnes, S.L., 1994a: Applications of the Barnes objective analysis scheme
+      Part I: Effects of undersampling, wave position, and station randomness.
+      J. Atmos. Oceanic Technol. 11, 1433-1448.
+    Barnes, S.L., 1994b: Applications of the Barnes objective analysis scheme
+      Part II: Improving derivative estimates. J. Atmos. Oceanic Technol. 11,
+      1449-1458.
+    Barnes, S.L., 1994c: Applications of the Barnes objective analysis scheme
+      Part III: Tuning for minimum error. J. Atmos. Oceanic Technol. 11,
+      1459-1479.
+    Narkhedkar, S. G., S. K. Sinha and A. K. Mitra (2008): Mesoscale
+      objective analysis of daily rainfall with satellite and conventional
+      data over Indian summer monsoon region. Geofizika, 25, 159-178.
     http://www.atmos.albany.edu/GEMHELP5.2/OABSFC.html
 
     :param ix: 1D array, station longitude
@@ -86,43 +88,47 @@ def barnes(ix, iy, iz, gs=None, nyx=None, limit=None, radius=None,
                   grid: [ymin, ymax, xmin, xmax]. If not specified, the
                   grid limits are set to the extent of x and y.
     :param radius: search radius, [y radius, x radius],
-                  [40, 40] is default, with 'kappa' units, where kappa is the scale
-                  length, which controls the rate of fall-off of the weighting function.
-                  Search radius is the max distance that a station may be from a grid
-                  point to be used in the analysis for that point.  The search radius
-                  will be set so that stations whose weighting factor would be less
-                  than EXP (-SEARCH) will not be used.  SEARCH must be
-                  in the range 1 - 50, such that stations receiving a weight less
-                  than EXP(-search) are considered negligible.  Typically a value of 20
-                  is used, which corresponds to a weight threshold of approximately 2e-9.
-                  If a very small value is used, many grid points will not have 3 stations
-                  within the search area and will be set to the missing data value.
+                  [40, 40] is default, with 'kappa' units, where kappa is the
+                  scale length, which controls the rate of fall-off of the
+                  weighting function. Search radius is the max distance that
+                  a station may be from a grid point to be used in the analysis
+                  for that point.  The search radius will be set so that
+                  stations whose weighting factor would be less than
+                  EXP (-SEARCH) will not be used.  SEARCH must be in the range
+                  1 - 50, such that stations receiving a weight less than
+                  EXP(-search) are considered negligible.  Typically a value
+                  of 20 is used, which corresponds to a weight threshold of
+                  approximately 2e-9. If a very small value is used, many grid
+                  points will not have 3 stations within the search area and
+                  will be set to the missing data value.
     :param gamma: is a numerical covergence parameter that controls the
-                  difference between the weights on the first and second passes,
-                  and lies between 0 and 1. Typically a value between .2 and .3 is
-                  used. Gamma=0.3 is default.
+                  difference between the weights on the first and second
+                  passes, and lies between 0 and 1. Typically a value between
+                  .2 and .3 is used. Gamma=0.3 is default.
                   gamma=0.2, minimum smoothing;
                   gamma=1.0, maximum smoothing.
     :param kappa: the scale length, Koch et al., 1983
     :param npasses: 3 passes is default.
-                    Set the number of passes for the Barnes analysis to do 4 passes
-                    recommended for analysing fields where derivative estimates are
-                    important (Ref: Barnes 1994b) 3 passes recommended for all other
-                    fields (with gain set to 1.0) (Ref: Barnes 1994c "Two pass Barnes
-                    Objective Analysis schemes now in use probably should be replaced
-                    by appropriately tuned 3 pass or 4 pass schemes") 2 passes only
-                    recommended for "quick look" type analyses.
-    :param non_uniform: When the data spacing is severely non-uniform, Koch et al.
-                        (1983) suggested the data spacing Dn, which has the following form:
-                        sqrt(area){(1+sqrt(N))/(N-1)}
-    :param yxout: the latitudes and longitudes on the grid where interpolated values
-                  are desired (in degrees), list [yout[:], xout[:]]
-    :param first_guess: use a model grid as a first guess field for the analysis,
-                        which is a dictionary
+                    Set the number of passes for the Barnes analysis to do
+                    4 passes recommended for analysing fields where derivative
+                    estimates are important (Ref: Barnes 1994b) 3 passes
+                    recommended for all other fields (with gain set to 1.0)
+                    (Ref: Barnes 1994c "Two pass Barnes Objective Analysis
+                    schemes now in use probably should be replaced
+                    by appropriately tuned 3 pass or 4 pass schemes") 2 passes
+                    only recommended for "quick look" type analyses.
+    :param non_uniform: When the data spacing is severely non-uniform,
+                        Koch et al. (1983) suggested the data spacing Dn,
+                        which has the following form:
+                          sqrt(area){(1+sqrt(N))/(N-1)}
+    :param yxout: the latitudes and longitudes on the grid where interpolated
+                  values are desired (in degrees), list [yout[:], xout[:]]
+    :param first_guess: use a model grid as a first guess field for the
+                        analysis, which is a dictionary
                         {'data': [ny, nx], 'x': x[nx], 'y': y[ny]}
     :param missing: if set, remove  missing data.
     :param zrange: if set, z which are in zrange are used.
-    :param nonegative: if True, negative number were set to 0.0 for return value
+    :param nonegative: if True, negative number were set to 0.0 for return.
     :return: output grid, which is a dictionary
              {'data': [ny, nx], 'x': x[nx], 'y': y[ny]}
     """
@@ -169,7 +175,7 @@ def barnes(ix, iy, iz, gs=None, nyx=None, limit=None, radius=None,
 
     # kappa parameters (the scale length, Koch et al., 1983)
     if kappa is None:
-        kappa = 5.052 * (deltan * 2.0 /np.pi) * (deltan * 2.0 / np.pi)
+        kappa = 5.052 * (deltan * 2.0 / np.pi) * (deltan * 2.0 / np.pi)
 
     # search radius
     if radius is None:
@@ -204,8 +210,11 @@ def barnes(ix, iy, iz, gs=None, nyx=None, limit=None, radius=None,
         nyx = [len(yxout[0]), len(yxout[1])]
         gs = [yxout[0][1]-yxout[0][0], yxout[1][1]-yxout[1][0]]
     else:
-        yxout = [scale_vector(np.arange(nyx[0], dtype=np.float), limit[0], limit[1]),
-                 scale_vector(np.arange(nyx[1], dtype=np.float), limit[2], limit[3])]
+        yxout = [
+            scale_vector(
+                np.arange(nyx[0], dtype=np.float), limit[0], limit[1]),
+            scale_vector(
+                np.arange(nyx[1], dtype=np.float), limit[2], limit[3])]
 
     # define grid
     yout = yxout[0]
@@ -220,7 +229,9 @@ def barnes(ix, iy, iz, gs=None, nyx=None, limit=None, radius=None,
     for j in range(ny):
         for i in range(nx):
             # points in search radius
-            rd = ((xout[i] - x) / radius[0]) ** 2 + ((yout[j] - y) / radius[1]) ** 2
+            rd = (
+                ((xout[i] - x) / radius[0]) ** 2 +
+                ((yout[j] - y) / radius[1]) ** 2)
             if np.count_nonzero(rd <= 1.0) < 1:
                 indices.append(None)
                 distances.append(None)
@@ -233,8 +244,9 @@ def barnes(ix, iy, iz, gs=None, nyx=None, limit=None, radius=None,
             zz = z[index]
 
             # compute the square distance
-            d = (xout[i] - xx) * (xout[i] - xx) + \
-                (yout[j] - yy) * (yout[j] - yy) * np.cos(yout[j]) * np.cos(yout[j])
+            d = (xout[i] - xx) * (xout[i] - xx) +\
+                (yout[j] - yy) * (yout[j] - yy) *\
+                np.cos(yout[j]) * np.cos(yout[j])
 
             # compute weights
             w = np.exp(-1.0 * d / kappa)
@@ -248,7 +260,8 @@ def barnes(ix, iy, iz, gs=None, nyx=None, limit=None, radius=None,
 
     # initializing first guess with give field
     if first_guess is not None:
-        g0 = hinterp(first_guess['data'], first_guess['x'], first_guess['y'], xout, yout)
+        g0 = hinterp(first_guess['data'], first_guess['x'],
+                     first_guess['y'], xout, yout)
 
     # second and more pass
     points = np.vstack((y, x)).T
@@ -285,6 +298,3 @@ def barnes(ix, iy, iz, gs=None, nyx=None, limit=None, radius=None,
 
     # return grid
     return {'data': g0, 'x': xout, 'y': yout}
-
-
-

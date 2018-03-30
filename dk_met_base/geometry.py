@@ -3,6 +3,7 @@
 """
 Polygon, line and point algorithm.
 
+refer to:
 https://github.com/inasafe/python-safe/blob/master/safe/engine/polygon.py
 """
 

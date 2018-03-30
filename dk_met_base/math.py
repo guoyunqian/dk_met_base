@@ -44,7 +44,7 @@ def extreme_2d(array2d, flag=-1, edge=False):
         return w
 
 
-def cantor_pairing(a, b, ):
+def cantor_pairing(a, b):
     """Create an unique number from two natural numbers
     For more information about the Cantor pairing function, have a look at:
     https://en.wikipedia.org/wiki/Pairing_function
