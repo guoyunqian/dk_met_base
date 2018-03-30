@@ -24,8 +24,8 @@ setup(
     long_description=long_description,
 
     # project home URL and download URL
-    url='https://bitbucket.org/dave2017/'+name,
-    download_url='https://bitbucket.org/dave2017/'+name+'/downloads/',
+    url='https://github.com/NMC-DAVE/'+name,
+    download_url='https://github.com/NMC-DAVE/'+name+'/downloads/',
 
     # author
     author=author,
