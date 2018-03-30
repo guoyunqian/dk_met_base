@@ -56,12 +56,10 @@ Tfrez = 273.15    # zero degree K
 T0 = 300
 P0 = 101325       # standard atmosphere pressure Pa
 Pr = 1000.0
-lapsesta = 6.5e-3   # averaged temperature lapse rate in the
-                    # lower atmosphere (degree/m)
+lapsesta = 6.5e-3  # lower atmosphere averaged T lapse rate (degree/m)
 
 # water constants
-rhow = 1000.    # Density of liquid water at 0C,
-                # From Weast and Astle 1980,  In kg / m^3
+rhow = 1000.    # Density of liquid water at 0C, In kg / m^3
 rhoi = 9.17e+2  # Density of ice at 0C kg / m^3
 mw = 18.016     # Molecular mass for H2O kg / kmol
 meps = 0.622    # Molecular weight ratio of H2O to dry air
@@ -79,8 +77,8 @@ base_time = _dt.datetime(1900, 1, 1, 0, 0, 0)
 base_time_units = 'days since 1900-01-01 00 UTC'
 
 # map region limit
-limit_china = [73.6667, 135.042, 3.86667, 53.5500]
-limit_china_continents = [73., 136., 18., 54.]
+limit_china = (73.6667, 135.042, 3.86667, 53.5500)
+limit_china_continents = (73., 136., 18., 54.)
 
 
 # functions for geophysical constants
