@@ -1,8 +1,8 @@
 # _*_ coding: utf-8 _*_
 
+from os import path
 from setuptools import find_packages, setup
 from codecs import open
-from os import path
 
 name = "dk_met_base"
 author = __import__(name).__author__
@@ -11,7 +11,7 @@ version = __import__(name).__version__
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
@@ -19,7 +19,8 @@ setup(
 
     version=version,
 
-    description='Collection of basic functions for array, mathematics, utility and so on.',
+    description=("A collections of basic functions "
+                 "for meteorological development."),
     long_description=long_description,
 
     # project home URL and download URL
