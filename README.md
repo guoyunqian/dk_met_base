@@ -8,7 +8,6 @@ dk_met_base为气象应用开发提供基础功能函数, 包括数组处理, �
 Python 3 is supported.
 
 ## Dependencies
-------------
 Other required packages:
 
 - Numpy
@@ -19,7 +18,6 @@ Other required packages:
 - Numba
 
 ## Install
-------------
-
 Using the fellowing command to install packages.
+
 > pip install git+git://github.com/NMC-DAVE/dk_met_base.git
