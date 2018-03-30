@@ -40,36 +40,38 @@ mass_a = 5.3e18             # Mass of the Earth’s atmosphere, kg
 mass_ac = 1.017e4           # Mass of an atmospheric column kg/m^2
 
 # Thermodynamic constants
-rho0 = 1.25                       # Typical density of air at sea level (kg/m**3)
-md = 28.97                        # Effective molecular mass for dry air (kg/kmol)
-rd = 287.04                       # dry gas constant (J/K/kg)
-rv = 461.6                        # gas constant of water vapour (J/K/kg)
-cp = 1004.5                       # Specific heat of dry air, constant pressure
-cv = 717.5                        # Specific heat of dry air, constant volume
-gcp = 9.8e-3                      # Dry adiabatic lapse rate K/m
-K = 2.4e-2                        # Thermal conductivity at 0 J m−1 s−1 K−1
-kappa = rd/cp                     # Poisson's constant
+rho0 = 1.25       # Typical density of air at sea level (kg/m**3)
+md = 28.97        # Effective molecular mass for dry air (kg/kmol)
+rd = 287.04       # dry gas constant (J/K/kg)
+rv = 461.6        # gas constant of water vapour (J/K/kg)
+cp = 1004.5       # Specific heat of dry air, constant pressure
+cv = 717.5        # Specific heat of dry air, constant volume
+gcp = 9.8e-3      # Dry adiabatic lapse rate K/m
+K = 2.4e-2        # Thermal conductivity at 0 J m−1 s−1 K−1
+kappa = rd/cp     # Poisson's constant
 gamma = cp/cv
 epsil = rd/rv
-Talt = 288.15                     # temperature at standard sea level
-Tfrez = 273.15                    # zero degree K
+Talt = 288.15     # temperature at standard sea level
+Tfrez = 273.15    # zero degree K
 T0 = 300
-P0 = 101325                       # standard atmosphere pressure Pa
+P0 = 101325       # standard atmosphere pressure Pa
 Pr = 1000.0
-lapsesta = 6.5e-3                 # averaged temperature lapse rate in the lower atmosphere (degree/m)
+lapsesta = 6.5e-3   # averaged temperature lapse rate in the
+                    # lower atmosphere (degree/m)
 
 # water constants
-rhow = 1000.            # Density of liquid water at 0C, From Weast and Astle 1980,  In kg / m^3
-rhoi = 9.17e+2          # Density of ice at 0C kg / m^3
-mw = 18.016             # Molecular mass for H2O kg / kmol
-meps = 0.622            # Molecular weight ratio of H2O to dry air
-cpw = 1952.             # Specific heat of water vapor at constant pressure J/deg/kg
-cvw = 1463.             # Specific heat of water vapor at constant volume J/deg/kg
-cw = 4218.              # Specific heat of liquid water at 0C J/K/kg
-ci = 2106.              # Specific heat of ice at 0C J/K/kg
-Lv = 2.5e+6             # Latent heat of vaporization at 0 degree (J/kg)
-Ls = 2.85e+6            # Latent heat of sublimation (H2O) (J/kg)
-Lf = 3.34e+5            # Latent heat of fusion (H2O) (J/kg)
+rhow = 1000.    # Density of liquid water at 0C,
+                # From Weast and Astle 1980,  In kg / m^3
+rhoi = 9.17e+2  # Density of ice at 0C kg / m^3
+mw = 18.016     # Molecular mass for H2O kg / kmol
+meps = 0.622    # Molecular weight ratio of H2O to dry air
+cpw = 1952.     # Specific heat of water vapor at constant pressure J/deg/kg
+cvw = 1463.     # Specific heat of water vapor at constant volume J/deg/kg
+cw = 4218.      # Specific heat of liquid water at 0C J/K/kg
+ci = 2106.      # Specific heat of ice at 0C J/K/kg
+Lv = 2.5e+6     # Latent heat of vaporization at 0 degree (J/kg)
+Ls = 2.85e+6    # Latent heat of sublimation (H2O) (J/kg)
+Lf = 3.34e+5    # Latent heat of fusion (H2O) (J/kg)
 eo = 6.11
 
 # time constants
@@ -111,29 +113,28 @@ def earth_beta(lat):
 
 
 def dlon2dx(dlon, clat):
-    u"""
+    """
     经度差在局地直角坐标系中的实际距离.
     """
-    return d2r(dlon)*Re*_np.cos(d2r(clat))
+    return _np.deg2rad(dlon)*Re*_np.cos(_np.deg2rad(clat))
 
 
 def dx2dlon(dx, clat):
-    u"""
+    """
     实际距离转换为经度差。
     """
-    return r2d(dx/Re/_np.cos(d2r(clat)))
+    return _np.rad2deg(dx/Re/_np.cos(_np.deg2rad(clat)))
 
 
 def dlat2dy(dlat):
-    u"""
+    """
     纬度差在局地直角坐标系中的实际距离.
     """
-    return d2r(dlat)*Re
+    return _np.deg2rad(dlat)*Re
 
 
 def dy2dlat(dy):
-    u"""
+    """
     实际距离转换为纬度差。
     """
-    return r2d(dy/Re)
-
+    return _np.rad2deg(dy/Re)
