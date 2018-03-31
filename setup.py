@@ -29,7 +29,7 @@ setup(
 
     # author
     author=author,
-    author_email='daikan1998@163.com',
+    author_email='kan.dai@foxmail.com',
 
     # LICENSE
     license='MIT',
