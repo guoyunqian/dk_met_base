@@ -29,7 +29,8 @@ or download the package and install:
   cd dk_met_base
   python setup.py install
 ```
-#Test Branchs and Commits
+#Test Branchs and Commit
+
 branch:另设分支，以供改动
 commit:提交改动，创建自己分支
 Pull Request：递交改动申请
